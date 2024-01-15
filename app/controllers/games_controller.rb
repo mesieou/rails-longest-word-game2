@@ -19,20 +19,20 @@ class GamesController < ApplicationController
   end
 
   def score
-    submitted_word = params[:word]
+    @submitted_word = params[:word]
     submitted_letters = params[:word].downcase.split('')
     computer_letters = params[:letters].downcase.split('')
 
-    @result = display_message(computer_letters, submitted_letters, submitted_word)
+    @result = display_message(computer_letters, submitted_letters, @submitted_word)
   end
 
   def display_message(computer_letters, submitted_letters, submitted_word)
     if !valid_word?(computer_letters, submitted_letters)
-      'Sorry, some of the letters/letter are/is not in the grid given'
+      "Sorry, but #{submitted_word.upcase} can't be built out of #{submitted_letters.join(", ").upcase}"
     elsif !english_word?(submitted_word)
-      'Sorry, this is not a valid english word'
+      "Sorry, but #{submitted_word.upcase} does not seem to be a valid English word..."
     else
-      'Congratulations!'
+      "Congratulations! #{submitted_word.upcase} is a valid English word!"
     end
   end
 
