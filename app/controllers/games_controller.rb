@@ -17,7 +17,24 @@ class GamesController < ApplicationController
   end
 
   def score
-    raise
+    submitted_letters = params[:word].downcase.split('')
+    computer_letters = params[:letters].downcase.split('')
 
+    @result = display_message(computer_letters, submitted_letters)
+  end
+
+  def display_message(computer_letters, submitted_letters)
+    if valid_word?(computer_letters, submitted_letters)
+      'Congratulations'
+    else
+      'Sorry'
+    end
+  end
+
+  def valid_word?(computer_letters, submitted_letters)
+    submitted_letters.all? do |letter|
+      computer_letters.include?(letter) &&
+        submitted_letters.count(letter) <= computer_letters.count(letter)
+    end
   end
 end
