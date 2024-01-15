@@ -1,0 +1,11 @@
+<h1 class="my-3">New Game</h1>
+<div class="d-flex">
+  <% @letters.each do |letter| %>
+    <h1 class='mx-2 px-2 bg-primary text-white rounded shadow text-center' style="width:45px"><%=letter%></h1>
+  <% end %>
+</div>
+<form action="/score" method="POST" data-turbo="false">
+  <input type="text" name="word" placeholder="longest work you can find">
+  <input type="submit" value="Play" >
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+</form>
